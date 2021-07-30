@@ -1,0 +1,1 @@
+<div class="copyrights margin-top-0">© 2019. Powered by <a href="aistrick.com">aissystem</a>.</div>
