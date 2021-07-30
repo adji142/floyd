@@ -195,7 +195,7 @@ $tujuan = $FrontEndClass->getTujuan();
     <script type="text/javascript" src="scripts/custom.js"></script>
 
     <!-- Maps -->
-    <script type="text/javascript" src="http://maps.google.com/maps/api/js?key=AIzaSyCG7FscIk67I9yY_fiyLc7-_1Aoyerf96E&language=id"></script>
+    <script type="text/javascript" src="https://maps.google.com/maps/api/js?key=AIzaSyCG7FscIk67I9yY_fiyLc7-_1Aoyerf96E&language=id"></script>
     <script type="text/javascript" src="scripts/infobox.min.js"></script>
     <script type="text/javascript" src="scripts/markerclusterer.js"></script>
     <script type="text/javascript" src="scripts/maps.js"></script>

@@ -89,7 +89,7 @@ function login() {
             if (allMarkers[i].args.marker_id == node_tujuan) {
 //                console.log(i);
                 marker_tujuan = allMarkers[i].latlng;
-//                console.log(marker_tujuan);
+               console.log(marker_tujuan);
                 var marker_div = allMarkers[i].div;
                 $(marker_div).addClass('clicked');
             }
@@ -133,7 +133,7 @@ function login() {
         var start = marker_asal.position;
         var end = marker_tujuan;
         var waypts = [];
-        console.log(data.data[0].path);
+        // console.log(data.data[0].path);
         for (var i = 0; i < data.data[0]['path'].length; i++) {
             waypts.push({location: data.data[0]['path'][i]['koordinat'], stopover: true});
             var teks = '<span>Node: ' + data.data[0]['path'][i]['node'] + '</span><br>' +
@@ -158,12 +158,17 @@ function login() {
             }
         }
         $('#listing-rute').html('');
+        // console.log(start);
+        // console.log(end);
+        // console.log(waypts);
+        var x = data.data[0]['path'][data.data[0]['path'].length - 1]['koordinat'].split(",");
+        console.log(x);
         var request = {
             origin: start,
-            destination: end,
+            destination: {lat:parseFloat(x[0]), lng: parseFloat(x[1])},
             waypoints: waypts,
             optimizeWaypoints: true,
-            travelMode: google.maps.TravelMode.WALKING
+            travelMode: google.maps.TravelMode.DRIVING
         };
         geocoderID = [];
 
@@ -210,6 +215,7 @@ function login() {
                         width: 50
                     }];
                 var markerIco;
+                console.log(lokasi);
                 for (i = 0; i < lokasi.length; i++) {
                     markerIco = lokasi[i][4];
                     var overlaypositions = new google.maps.LatLng(lokasi[i][1], lokasi[i][2]),
