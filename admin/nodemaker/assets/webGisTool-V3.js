@@ -39,7 +39,7 @@ $(document).ready(function () {
 
 });
 function initMap() {
-	if (navigator.onLine) {
+    if (navigator.onLine) {
     } else {
         $.MessageBox("Google map API membutuhkan koneksi internet <br> :) cheeeers...");
     }
@@ -347,6 +347,7 @@ function markerClicked(evt, marker) {
                     window['poly' + __nomorGraph_incr] = new google.maps.Polyline(polyOptions);
                     window['poly' + __nomorGraph_incr].setMap(map);
                     google.maps.event.addListener(window['poly' + __nomorGraph_incr], 'click', function (ev) {
+                        // console.log(ev.latLng.lat());
                         removeLine(ev.latLng.lat(), ev.latLng.lng());
                     });
                     $.jnotify('<h4>Vertex ' + temp_node1 + ' dan ' + temp_node2 + ' Terhubung</h4>', 'success', {timeout: 2});
@@ -379,11 +380,15 @@ function markerClicked(evt, marker) {
         }
     }
     function removeLine(lat, lng) {
+        // console.log(lat);
         if (__delete_graph === true) {
             for (var i = 0; i < __graph.length; i++) {
                 var path = __graph[i].getPath();
-                for (var j = 0; j < path['b'].length; j++) {
-                    if (path['b'][j].lat() == lat && path['b'][j].lng() == lng) {
+                // alert('a');
+                // debug();
+                console.log(path);
+                for (var j = 0; j < path['Fb'].length; j++) {
+                    if (path['Fb'][j].lat() == lat && path['Fb'][j].lng() == lng) {
                         var grph = __graph, idx = i;
                         $.MessageBox({
                             buttonDone: "Ya (Enter)",

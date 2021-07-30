@@ -36,7 +36,7 @@ function checkPage($current, $data) {
         </a>
     </li>
     <li class="header">DATA</li>
-    <li class="<?= checkPage($activePage, 'tempat') ?>" data-toggle="tooltip" data-placement="bottom" title="Management data Hotel" >
+    <li class="<?= checkPage($activePage, 'tempat') ?>" data-toggle="tooltip" data-placement="bottom" title="Management data Tempat" >
         <a href="tempat.php"><i class="fa fa-puzzle-piece"></i>
             <span>Data Tempat</span>
             <span class="pull-right-container">

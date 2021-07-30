@@ -11,7 +11,7 @@ $tujuan = $FrontEndClass->getTujuan();
 <head>
     <!-- Basic Page Needs
     ================================================== -->
-    <title>Dinas Pemadam kebakaran</title>
+    <title>Rumah Sakit Terdekat</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
     <!-- CSS
@@ -195,7 +195,7 @@ $tujuan = $FrontEndClass->getTujuan();
     <script type="text/javascript" src="scripts/custom.js"></script>
 
     <!-- Maps -->
-    <script type="text/javascript" src="https://maps.google.com/maps/api/js?key=AIzaSyCG7FscIk67I9yY_fiyLc7-_1Aoyerf96E&language=id"></script>
+    <script type="text/javascript" src="http://maps.google.com/maps/api/js?key=AIzaSyCG7FscIk67I9yY_fiyLc7-_1Aoyerf96E&language=id"></script>
     <script type="text/javascript" src="scripts/infobox.min.js"></script>
     <script type="text/javascript" src="scripts/markerclusterer.js"></script>
     <script type="text/javascript" src="scripts/maps.js"></script>
