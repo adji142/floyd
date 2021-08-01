@@ -4,7 +4,7 @@ class Koneksi {
 
     private $host = "localhost";
     private $user = "root";
-    private $password = "hsp123";
+    private $password = "";
     private $db = "floyd";
 
     public function connect() {
@@ -35,12 +35,13 @@ class graph { // class graph digunakan untuk pengolahan data sebelum dikirim ke 
 
     private function listTujuan() {
         $link = $this->koneksi;
-        $sql = "select DISTINCT (akhir) from `graph` order BY akhir ASC";
+        $sql = "select DISTINCT (akhir) from `graph` order BY akhir ASC LIMIT 83";
         $result = mysqli_query($link, $sql);
         $arr = [];
         while ($data = mysqli_fetch_assoc($result)) {
             array_push($arr, $data['akhir']);
         }
+        // var_dump($arr);
         return $arr;
     }
 

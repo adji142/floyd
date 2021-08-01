@@ -19,13 +19,13 @@ else{
 
 $finalarr = array('count' => 0, 'data'=>array());
 
-// var_dump(count($tujuan));
+// var_dump($tujuan);
 
 
 if (count($tujuan) > 1) {
-	if (($keyx = array_search($_POST['asal'], $tujuan)) !== false) {
-	    unset($tujuan[$keyx]);
-	}
+	// if (($keyx = array_search($_POST['asal'], $tujuan)) !== false) {
+	//     unset($tujuan[$keyx]);
+	// }
 
 	$x = 0;
 	// var_dump($tujuan);
@@ -37,6 +37,7 @@ if (count($tujuan) > 1) {
 		$distance = $fw->get_distance($asal, $key);
 		$dataMateng = [];
 		$detailedNode = [];
+		// var_dump($x."=>".count($path)."=>".$key);
 		for ($i = 0; $i < count($path); $i++) {
 			// var_dump($path);
 		    $getdetail = $graphclass->getNodeDetail($path[$i]);
@@ -47,15 +48,17 @@ if (count($tujuan) > 1) {
 		}
 		$dataMateng['jarak'] = floatval($distance);
 		$dataMateng['path'] = $detailedNode;
-		// echo json_encode($detailedNode[$x]);
+		// echo json_encode($detailedNode);
+
+		// array_push($finalarr['data'], $dataMateng);
+		// $x+=1;
 
 		if (floatval($distance) > 0) {
 			if ($key != $_POST['asal']) {
 				array_push($finalarr['data'], $dataMateng);
-				$x+=1;
 			}
 		}
-		jump:
+		$x+=1;
 	}
 	$finalarr['count'] = $x;
 
