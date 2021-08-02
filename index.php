@@ -182,6 +182,7 @@ $tujuan = $FrontEndClass->getTujuan();
 
     <!-- Scripts
     ================================================== -->
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script type="text/javascript" src="scripts/jquery-2.2.0.min.js"></script>
     <script type="text/javascript" src="scripts/jpanelmenu.min.js"></script>
     <script type="text/javascript" src="scripts/chosen.min.js"></script>

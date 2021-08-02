@@ -95,9 +95,29 @@ function login() {
             }
         }
         deleteNodeMarker();
-        $.post('core/processing.php', {asal: node_asal, tujuan: node_tujuan}, function (response) {
-            calcRoute(response);
+        $.ajax({
+            url : 'core/processing.php',
+            type : 'post',
+            data: {asal: node_asal, tujuan: node_tujuan},
+            beforeSend: function(){
+                // console.log('loading ....');
+                Swal.fire({
+                  allowOutsideClick: false,
+                  title: 'Informasi',
+                  text: 'Loading ....',
+                  didOpen: () => {
+                    Swal.showLoading()
+                  }
+                })
+            },
+            success: function(response){
+                swal.close()
+                calcRoute(response);
+            }
         });
+        // $.post('core/processing.php', {asal: node_asal, tujuan: node_tujuan}, function (response) {
+        //     calcRoute(response);
+        // });
         custMarker = [];
         formatted_address = [];
     }
