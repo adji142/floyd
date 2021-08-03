@@ -188,7 +188,7 @@ function login() {
             destination: {lat:parseFloat(x[0]), lng: parseFloat(x[1])},
             waypoints: waypts,
             optimizeWaypoints: true,
-            travelMode: google.maps.TravelMode.DRIVING
+            travelMode: google.maps.TravelMode.WALKING
         };
         geocoderID = [];
 
