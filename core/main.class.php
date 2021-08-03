@@ -3,9 +3,9 @@
 class Koneksi {
 
     private $host = "localhost";
-    private $user = "root";
-    private $password = "";
-    private $db = "floyd";
+    private $user = "aisx1277_root";
+    private $password = "lagis3nt0s4";
+    private $db = "aisx1277_floyd";
 
     public function connect() {
         return mysqli_connect($this->host, $this->user, $this->password, $this->db);
