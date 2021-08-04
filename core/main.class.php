@@ -4,7 +4,7 @@ class Koneksi {
 
     private $host = "localhost";
     private $user = "root";
-    private $password = "hsp123";
+    private $password = "lagis3nt0s4";
     private $db = "floyd";
 
     public function connect() {
