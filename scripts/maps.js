@@ -153,7 +153,7 @@ function login() {
         var start = marker_asal.position;
         var end = marker_tujuan;
         var waypts = [];
-        // console.log(data.data[0].path);
+        console.log(data.data[0]);
         for (var i = 0; i < data.data[0]['path'].length; i++) {
             waypts.push({location: data.data[0]['path'][i]['koordinat'], stopover: true});
             var teks = '<span>Node: ' + data.data[0]['path'][i]['node'] + '</span><br>' +
@@ -189,6 +189,7 @@ function login() {
             waypoints: waypts,
             optimizeWaypoints: true,
             travelMode: google.maps.TravelMode.WALKING
+            // WALKING - DRIVING
         };
         geocoderID = [];
 

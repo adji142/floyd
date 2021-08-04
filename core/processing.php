@@ -9,7 +9,8 @@ $graph = $graphclass->makeGraph();
 $nodes = $graphclass->makeNodes();
 
 $asal = array_search($_POST['asal'], $nodes);
-
+$asalx = $_POST['asal'];
+// var_dump($asalx);
 if ($_POST['tujuan'] == "") {
 	$tujuan = $nodes;
 }
@@ -87,7 +88,9 @@ else{
 	$fw = new FloydWarshall($graph, $nodes);
 
 
+	// $path = $fw->get_path($asal, $tujuan);
 	$path = $fw->get_path($asal, $tujuan);
+	// var_dump($asal);
 	$distance = $fw->get_distance($asal, $tujuan);
 	$dataMateng = [];
 	$detailedNode = [];

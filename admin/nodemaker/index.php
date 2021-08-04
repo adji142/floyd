@@ -87,7 +87,7 @@ if ($sessions['logged'] != true) {
                 </div>
             </div>
         </div>
-        <input id="pac-input" class="controls" type="text" placeholder="Search Box">
+        <input id="pac-input" class="controls" type="text" placeholder="Search Box" size="55">
         <div id="map-canvas" style="float:left;"></div>
         <div id="md_nodes" class="modal container fade" tabindex="-1" style="display: none;">
             <div class="modal-dialog modal-lg" style="width: 100%">
