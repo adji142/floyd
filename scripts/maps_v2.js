@@ -66,9 +66,10 @@ function login() {
     $('#tujuan').on('change', function () {
         node_tujuan = $(this).val();
 //        alert(node_tujuan);
-        if (node_asal != null) {
-            getData();
-        }
+        // if (node_asal != "") {
+        //     getData();
+        // }
+        getData();
     });
     function createInfoWindow(marker, popupContent) {
         google.maps.event.addListener(marker, 'click', function () {
@@ -88,15 +89,35 @@ function login() {
             if (allMarkers[i].args.marker_id == node_tujuan) {
 //                console.log(i);
                 marker_tujuan = allMarkers[i].latlng;
-//                console.log(marker_tujuan);
+               console.log(marker_tujuan);
                 var marker_div = allMarkers[i].div;
                 $(marker_div).addClass('clicked');
             }
         }
         deleteNodeMarker();
-        $.post('core/processing.php', {asal: node_asal, tujuan: node_tujuan}, function (response) {
-            calcRoute(response);
+        $.ajax({
+            url : 'core/processing.php',
+            type : 'post',
+            data: {asal: node_asal, tujuan: node_tujuan},
+            beforeSend: function(){
+                // console.log('loading ....');
+                Swal.fire({
+                  allowOutsideClick: false,
+                  title: 'Informasi',
+                  text: 'Loading ....',
+                  didOpen: () => {
+                    Swal.showLoading()
+                  }
+                })
+            },
+            success: function(response){
+                swal.close()
+                calcRoute(response);
+            }
         });
+        // $.post('core/processing.php', {asal: node_asal, tujuan: node_tujuan}, function (response) {
+        //     calcRoute(response);
+        // });
         custMarker = [];
         formatted_address = [];
     }
@@ -132,39 +153,43 @@ function login() {
         var start = marker_asal.position;
         var end = marker_tujuan;
         var waypts = [];
-        for (var i = 0; i < data['path'].length; i++) {
-            if (i < 23) {
-                waypts.push({location: data['path'][i]['koordinat'], stopover: true});
-            }
-            var teks = '<span>Node: ' + data['path'][i]['node'] + '</span><br>' +
-                    '<span>Keterangan: ' + data['path'][i]['nama'] + '</span>';
-            createMarker(teks, data['path'][i]['lat'], data['path'][i]['lng'], data['path'][i]['node']);
+        // console.log(data.data[0]);
+        for (var i = 0; i < data.data[0]['path'].length; i++) {
+            waypts.push({location: data.data[0]['path'][i]['koordinat'], stopover: true});
+            var teks = '<span>Node: ' + data.data[0]['path'][i]['node'] + '</span><br>' +
+                    '<span>Keterangan: ' + data.data[0]['path'][i]['nama'] + '</span>';
+            createMarker(teks, data.data[0]['path'][i]['lat'], data.data[0]['path'][i]['lng'], data.data[0]['path'][i]['node']);
 
-            if (i == data['path'].length - 1) {
-                rute += data['path'][i]['node'];
-                if (data['path'][i]['nama'] != '') {
-                    keterangan += data['path'][i]['nama'];
+            if (i == data.data[0]['path'].length - 1) {
+                rute += data.data[0]['path'][i]['node'];
+                if (data.data[0]['path'][i]['nama'] != '') {
+                    keterangan += data.data[0]['path'][i]['nama'];
                 } else {
-                    keterangan += data['path'][i]['node'];
+                    keterangan += data.data[0]['path'][i]['node'];
                 }
 
             } else {
-                rute += data['path'][i]['node'] + ' - ';
-                if (data['path'][i]['nama'] != '') {
-                    keterangan += data['path'][i]['nama'] + ' <span class="fa fa-long-arrow-right "></span> ';
+                rute += data.data[0]['path'][i]['node'] + ' - ';
+                if (data.data[0]['path'][i]['nama'] != '') {
+                    keterangan += data.data[0]['path'][i]['nama'] + ' <span class="fa fa-long-arrow-right "></span> ';
                 } else {
-                    keterangan += data['path'][i]['node'] + ' <span class="fa fa-long-arrow-right "></span> ';
+                    keterangan += data.data[0]['path'][i]['node'] + ' <span class="fa fa-long-arrow-right "></span> ';
                 }
             }
         }
         $('#listing-rute').html('');
-
+        // console.log(start);
+        // console.log(end);
+        // console.log(waypts);
+        var x = data.data[0]['path'][data.data[0]['path'].length - 1]['koordinat'].split(",");
+        console.log(waypts);
         var request = {
             origin: start,
-            destination: end,
             waypoints: waypts,
-            optimizeWaypoints: true,
+            destination: {lat:parseFloat(x[0]), lng: parseFloat(x[1])},
+            optimizeWaypoints: false,
             travelMode: google.maps.TravelMode.WALKING
+            // WALKING - DRIVING
         };
         geocoderID = [];
 
@@ -181,7 +206,7 @@ function login() {
         });
         infowindow.open(map, marker_asal);
         $('#path').html('<h4 class="">Node Yang Dilalui: ' + "</h4><p>" + rute + "</p>");
-        $('#jarak').html('<h4 class="">Total Jarak: </h4><p>' + data['jarak'] + ' Meter</p>');
+        $('#jarak').html('<h4 class="">Total Jarak: </h4><p>' + data.data[0]['jarak'] + ' Meter</p>');
         $('#keterangan').html('<h4 class="">Info Jalur: ' + "</h4><p>" + keterangan + "</p>");
     }
     function deleteNodeMarker() {
@@ -211,6 +236,7 @@ function login() {
                         width: 50
                     }];
                 var markerIco;
+                console.log(lokasi);
                 for (i = 0; i < lokasi.length; i++) {
                     markerIco = lokasi[i][4];
                     var overlaypositions = new google.maps.LatLng(lokasi[i][1], lokasi[i][2]),

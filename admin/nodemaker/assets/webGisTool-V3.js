@@ -154,7 +154,6 @@ function initMap() {
         __koordinatVertex.push(new google.maps.LatLng(locations[i][1], locations[i][2]));
         google.maps.event.addListener(marker, "click", function (evt)
         {
-
             for (var i = 0; i < __vertex.length; i++) {
                 if (__vertex[i].title == this.title) {
                     markerClicked(evt, __vertex[i]);
@@ -314,6 +313,8 @@ function initMap() {
 
   }
 function markerClicked(evt, marker) {
+        console.log(evt);
+        console.log(marker);
         if (__add_graph === true) {
             var path = window['poly' + __nomorGraph_incr].getPath();
             path.push(evt.latLng);
